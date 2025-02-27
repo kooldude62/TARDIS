@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating TARDIS in Space</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background: url('https://wallpapers.com/images/hd/infinite-universe-a-deep-look-into-black-space-background-dzei5wvh7dqra2c4.jpg') repeat;
+            background-size: cover;
+            animation: moveBackground 120s linear infinite;
+            transition: background 1s ease-in-out;
+        }
+
+        @keyframes moveBackground {
+            from { background-position: 0 0; }
+            to { background-position: -2000px 2000px; }
+        }
+
+        .tardis {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 250px;
+            height: auto;
+            transform-origin: center;
+            cursor: pointer;
+            filter: drop-shadow(0px 0px 15px rgba(0, 0, 255, 0.8));
+        }
+
+        .code-panel {
+            display: none;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 70%;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            overflow: auto;
+            font-family: monospace;
+            text-align: center;
+        }
+
+        .code-panel textarea {
+            width: 100%;
+            height: 50%;
+            background: black;
+            color: green;
+            font-size: 16px;
+        }
+
+        .code-panel button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://www.minitopia.com.au/cdn/shop/files/MASDRW-TAR1--DrWho-FirstTardis-Replica-01_600x600_crop_center.png?v=1715736430" 
+         class="tardis" id="tardis" onclick="changeScene()">
+
+    <div class="code-panel" id="codePanel">
+        <h2>Code Terminal</h2>
+        <p>Enter the dimension URL to travel:</p>
+        <textarea id="dimensionInput"></textarea>
+        <br>
+        <button onclick="travelToDimension()">Enter</button>
+        <button onclick="toggleCodePanel()">Hide</button>
+    </div>
+    <button id="showButton" style="display: none; position: absolute; top: 10px; left: 10px; padding: 10px; background: green; color: white; border: none; border-radius: 5px; cursor: pointer;" onclick="toggleCodePanel()">Show Terminal</button>
+
+    <script>
+        let time = 0;
+        let isSceneChanged = false;
+
+        function animateTardis() {
+            if (isSceneChanged) return;
+            const tardis = document.getElementById('tardis');
+            if (!tardis) return;
+            
+            const sineWave = Math.sin(time) * 6;  // Slower up and down movement
+            const rotation = Math.sin(time / 6) * 2; // Slower rotation
+
+            tardis.style.transform = `translate(-50%, ${sineWave}px) rotate(${rotation}deg)`;
+            
+            time += 0.015; // Slower speed of movement
+            requestAnimationFrame(animateTardis);
+        }
+
+        function changeScene() {
+            isSceneChanged = true;
+            document.body.style.background = "url('https://www.ambientlight.co.uk/wp/wp-content/uploads/2019/03/doctor-who-google-street-view.jpg')";
+            document.body.style.backgroundSize = "cover";
+            document.body.style.animation = "none"; // Stop background movement inside the TARDIS
+            document.getElementById('tardis').style.display = 'none';
+            document.getElementById('codePanel').style.display = 'block';
+        }
+
+        function travelToDimension() {
+            let dimensionURL = document.getElementById('dimensionInput').value.trim();
+            if (dimensionURL) {
+                document.body.style.background = `url('${dimensionURL}')`;
+                document.body.style.backgroundSize = "cover";
+            } else {
+                alert("Please enter a valid URL.");
+            }
+        }
+
+        function toggleCodePanel() {
+            const codePanel = document.getElementById('codePanel');
+            const showButton = document.getElementById('showButton');
+            if (codePanel.style.display === 'none') {
+                codePanel.style.display = 'block';
+                showButton.style.display = 'none';
+            } else {
+                codePanel.style.display = 'none';
+                showButton.style.display = 'block';
+            }
+        }
+
+        animateTardis();
+    </script>
+</body>
+</html>

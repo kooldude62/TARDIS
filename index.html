@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Floating TARDIS in Space</title>
+    <title>TARDIS</title>
     <style>
         * {
             margin: 0;
@@ -94,8 +94,8 @@
             const tardis = document.getElementById('tardis');
             if (!tardis) return;
             
-            const sineWave = Math.sin(time) * 6;  // Slower up and down movement
-            const rotation = Math.sin(time / 6) * 2; // Slower rotation
+            const sineWave = Math.sin(time) * 6;
+            const rotation = Math.sin(time / 6) * 2;
 
             tardis.style.transform = `translate(-50%, ${sineWave}px) rotate(${rotation}deg)`;
             
@@ -107,7 +107,7 @@
             isSceneChanged = true;
             document.body.style.background = "url('https://www.ambientlight.co.uk/wp/wp-content/uploads/2019/03/doctor-who-google-street-view.jpg')";
             document.body.style.backgroundSize = "cover";
-            document.body.style.animation = "none"; // Stop background movement inside the TARDIS
+            document.body.style.animation = "none";
             document.getElementById('tardis').style.display = 'none';
             document.getElementById('codePanel').style.display = 'block';
         }
